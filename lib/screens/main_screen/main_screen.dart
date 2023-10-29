@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class MainScreen extends StatefulWidget {
@@ -10,6 +11,33 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Maxmeen"),
+        leading: const Icon(Icons.abc),
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          children: [
+            const DrawerHeader(
+              child: Text("Maxmeen"),
+            ),
+            ListTile(
+              title: const Text("Products"),
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text("Projects"),
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text("Calculator"),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
