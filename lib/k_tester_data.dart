@@ -18,7 +18,6 @@ Project project1 = Project.tester(
           "Maxmeen Amplifier 2400 watt",
           "MG-2400Zure",
           2400,
-          "id21",
           [],
           [],
           [
@@ -27,6 +26,10 @@ Project project1 = Project.tester(
               false,
               [
                 Channel.tester(240, []),
+              ],
+              [
+                "livingRoom",
+                "Men's Livingroom",
               ],
             ),
           ],
@@ -75,7 +78,6 @@ Project project1 = Project.tester(
           "Maxmeen Amplifier 2400 watt",
           "MG-2400Zure",
           2400,
-          "id21",
           [],
           [],
           [
@@ -84,6 +86,10 @@ Project project1 = Project.tester(
               false,
               [
                 Channel.tester(240, []),
+              ],
+              [
+                "livingRoom",
+                "Men's Livingroom",
               ],
             ),
           ],
@@ -138,7 +144,6 @@ Project project2 = Project.tester(
           "Maxmeen wall mount",
           "MG-R308",
           60,
-          "",
           [],
           [],
           [
@@ -152,6 +157,9 @@ Project project2 = Project.tester(
                   [4, 8],
                 ),
               ],
+              [
+                "bedroom1",
+              ],
             ),
           ],
         ),
@@ -160,7 +168,6 @@ Project project2 = Project.tester(
           "Maxmeen wall mount",
           "MG-R308",
           60,
-          "",
           [],
           [],
           [
@@ -173,6 +180,9 @@ Project project2 = Project.tester(
                   30,
                   [4, 8],
                 ),
+              ],
+              [
+                "bedroom2",
               ],
             ),
           ],

@@ -8,8 +8,7 @@ class Device {
   List<kPorts> inputs;
   List<kPorts> outputs;
   double totalPower;
-  List<Amplifier> amplifiers;
-  String? zoneId;
+  List<Amplifier>? amplifiers;
 
   Device(this.name, this.id)
       : sku = "",
@@ -19,8 +18,8 @@ class Device {
         amplifiers = [];
 
   //todo delete me
-  Device.tester(this.id, this.name, this.sku, this.totalPower, this.zoneId,
-      this.inputs, this.outputs, this.amplifiers);
+  Device.tester(this.id, this.name, this.sku, this.totalPower, this.inputs,
+      this.outputs, this.amplifiers);
 
   Device.mixerNoPower(this.id, this.name, this.sku, this.inputs, this.outputs)
       : totalPower = 0,

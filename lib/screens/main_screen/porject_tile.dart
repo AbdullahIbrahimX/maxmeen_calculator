@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:maxmeen_calculator/tools/models/amplifiers.dart';
+import 'package:maxmeen_calculator/tools/models/channel.dart';
 import 'package:maxmeen_calculator/tools/models/device.dart';
 import 'package:maxmeen_calculator/tools/models/group.dart';
 import 'package:maxmeen_calculator/tools/models/project.dart';
+import 'package:maxmeen_calculator/tools/models/speaker.dart';
 import 'package:maxmeen_calculator/tools/models/zone.dart';
 
 class ProjectTile extends StatelessWidget {
@@ -95,7 +98,114 @@ class DeviceTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.deepOrangeAccent,
-      child: Text(device.name),
+      child: Column(
+        children: [
+          Text(device.sku),
+          GridView.count(
+            padding: const EdgeInsets.all(8.0),
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            physics: ClampingScrollPhysics(),
+            childAspectRatio: 0.7,
+            children: List.generate(
+              device.amplifiers!.length ?? 0,
+              (index) {
+                Amplifier amplifier = device.amplifiers![index];
+                return AmplifierTile(amplifier: amplifier);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AmplifierTile extends StatelessWidget {
+  const AmplifierTile({
+    super.key,
+    required this.amplifier,
+  });
+
+  final Amplifier amplifier;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.black12,
+      child: Column(
+        children: [
+          Text(
+            "${amplifier.maxPower} watts",
+            style: const TextStyle(color: Colors.white),
+          ),
+          GridView.count(
+            padding: const EdgeInsets.all(8.0),
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            children: List<Widget>.generate(
+              amplifier.channels!.length,
+              (index) {
+                Channel channel = amplifier.channels![index];
+                return ChannelTile(channel: channel);
+              },
+            ),
+          ),
+          GridView.count(
+            padding: const EdgeInsets.all(8.0),
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            children: List.generate(
+              amplifier.connectedZones.length,
+              (index) {
+                String zoneName = amplifier.connectedZones[index];
+                return Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Card(
+                    color: Colors.green,
+                    child: Center(
+                      child: Text(
+                        zoneName,
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ChannelTile extends StatelessWidget {
+  const ChannelTile({
+    super.key,
+    required this.channel,
+  });
+
+  final Channel channel;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Card(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("${channel.maxPower} watts"),
+              Text(channel.ohmRange!.isEmpty ? "100V" : "${channel.ohmRange}"),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -112,7 +222,58 @@ class ZoneTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.green,
-      child: Text(zone.name),
+      child: Column(
+        children: [
+          Text(zone.name),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text("Recommended Watts : ${zone.recommendedWatt}"),
+              Text("Real Watts : ${zone.realWatt}"),
+            ],
+          ),
+          GridView.count(
+            padding: const EdgeInsets.all(8.0),
+            shrinkWrap: true,
+            crossAxisCount: 3,
+            children: List.generate(
+              zone.speakers!.length ?? 0,
+              (index) {
+                Speaker speaker = zone.speakers![index];
+                return SpeakerTile(speaker: speaker);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SpeakerTile extends StatelessWidget {
+  const SpeakerTile({
+    super.key,
+    required this.speaker,
+  });
+
+  final Speaker speaker;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        color: Colors.black12,
+        child: Column(
+          children: [
+            Text(speaker.sku, style: const TextStyle(color: Colors.white)),
+            Text("${speaker.chosenWatts} watts",
+                style: const TextStyle(color: Colors.white)),
+            Text(speaker.ohm == null ? "100v" : "8ohm",
+                style: const TextStyle(color: Colors.white)),
+          ],
+        ),
+      ),
     );
   }
 }
