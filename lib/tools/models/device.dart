@@ -11,14 +11,17 @@ class Device {
   List<Amplifier> amplifiers;
   String? zoneId;
 
-  Device()
-      : id = "",
-        name = "",
-        sku = "",
+  Device(this.name, this.id)
+      : sku = "",
         inputs = [],
         outputs = [],
         totalPower = 0,
         amplifiers = [];
+
+  //todo delete me
+  Device.tester(this.id, this.name, this.sku, this.totalPower, this.zoneId,
+      this.inputs, this.outputs, this.amplifiers);
+
   Device.mixerNoPower(this.id, this.name, this.sku, this.inputs, this.outputs)
       : totalPower = 0,
         amplifiers = [];

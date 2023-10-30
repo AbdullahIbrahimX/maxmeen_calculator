@@ -11,6 +11,10 @@ class Speaker {
         name = "",
         sku = "",
         watts = [];
+
+  //todo delete me
+  Speaker.tester(this.id, this.name, this.sku, this.chosenWatts) : watts = [];
+
   Speaker.ohm(this.id, this.name, this.sku, this.watts, this.ohm)
       : chosenWatts = watts.first;
   Speaker.volt(this.id, this.name, this.sku, this.watts, this.ohm);

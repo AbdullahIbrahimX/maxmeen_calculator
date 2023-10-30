@@ -14,6 +14,17 @@ class Zone {
   Zone(this.id, this.name, this.area, this.levelOfSound) {
     calculateRecommended();
   }
+  //todo delete me
+  Zone.tester(
+      this.id,
+      this.name,
+      this.area,
+      this.levelOfSound,
+      this.recommendedWatt,
+      this.recommendedWattPerSpeaker,
+      this.realWatt,
+      this.speakerCount,
+      this.speakers);
 
   void calculateRecommended() {
     recommendedWatt = area * levelOfSound;

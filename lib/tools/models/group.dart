@@ -10,4 +10,7 @@ class Group {
   Group(this.id, this.name)
       : zones = [],
         devices = [];
+
+  //todo delete me
+  Group.tester(this.id, this.name, this.devices, this.zones);
 }

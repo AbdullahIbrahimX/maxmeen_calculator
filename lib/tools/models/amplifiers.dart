@@ -9,6 +9,10 @@ class Amplifier {
       : maxPower = 0,
         divided = false,
         channels = [];
+
+  //todo delete me
+  Amplifier.tester(this.maxPower, this.divided, this.channels);
+
   Amplifier.volt(this.maxPower, this.divided, this.channels);
   Amplifier.ohm(this.maxPower, this.channels) : divided = true;
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:maxmeen_calculator/k_tester_data.dart';
+import 'package:maxmeen_calculator/screens/main_screen/porject_tile.dart';
+import 'package:maxmeen_calculator/tools/models/project.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -11,11 +13,13 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
+    //todo delete me
+    List<Project> recentProjectList = [project1, project2];
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Maxmeen"),
-        leading: const Icon(Icons.abc),
+        leading: const Icon(Icons.ac_unit),
       ),
       endDrawer: Drawer(
         child: ListView(
@@ -37,6 +41,13 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ],
         ),
+      ),
+      body: ListView.builder(
+        itemCount: recentProjectList.length,
+        itemBuilder: (context, index) {
+          Project p = recentProjectList[index];
+          return ProjectTile(project: p);
+        },
       ),
     );
   }
