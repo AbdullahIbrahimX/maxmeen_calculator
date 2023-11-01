@@ -17,12 +17,12 @@ class ProjectTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: Text(project.name),
-      children: [
-        Card(
-          color: Colors.blue,
-          child: ListView.builder(
+    return Card(
+      color: Colors.blue,
+      child: Column(
+        children: [
+          Text(project.name),
+          ListView.builder(
             shrinkWrap: true,
             itemCount: project.groups.length,
             //itemCount: 0,
@@ -34,8 +34,8 @@ class ProjectTile extends StatelessWidget {
               );
             },
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -106,7 +106,7 @@ class DeviceTile extends StatelessWidget {
             shrinkWrap: true,
             crossAxisCount: 2,
             physics: ClampingScrollPhysics(),
-            childAspectRatio: 0.7,
+            childAspectRatio: 0.53,
             children: List.generate(
               device.amplifiers!.length ?? 0,
               (index) {

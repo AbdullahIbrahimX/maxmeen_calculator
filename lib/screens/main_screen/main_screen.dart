@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maxmeen_calculator/k_tester_data.dart';
+import 'package:maxmeen_calculator/screens/add_project_screen/add_project_screen.dart';
 import 'package:maxmeen_calculator/screens/main_screen/porject_tile.dart';
 import 'package:maxmeen_calculator/tools/models/project.dart';
 
@@ -46,8 +47,23 @@ class _MainScreenState extends State<MainScreen> {
         itemCount: recentProjectList.length,
         itemBuilder: (context, index) {
           Project p = recentProjectList[index];
-          return ProjectTile(project: p);
+          return ExpansionTile(
+              title: Text(p.name), children: [ProjectTile(project: p)]);
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AddProjectScreen(),
+            ),
+          );
+        },
+        child: const Text(
+          "Add Project",
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
