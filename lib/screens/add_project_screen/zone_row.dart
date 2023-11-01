@@ -2,23 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:maxmeen_calculator/kports.dart';
 
 class ZoneRow extends StatelessWidget {
-  const ZoneRow({
+  const ZoneRow(
+    this.index,
+    this.selected,
+    this.setSelected,
+    this.deleteZone, {
     super.key,
   });
+  final int index;
+  final bool selected;
+  final Function(int) setSelected;
+  final Function(int) deleteZone;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          SizedBox(
-              width: 90,
-              child:
-                  FilledButton(onPressed: () {}, child: const Text("Zone 1"))),
-          SizedBox(
-            height: 120,
-            width: MediaQuery.sizeOf(context).width - 106,
+    return Row(
+      children: [
+        FilledButton(
+          onPressed: () {},
+          onLongPress: () => setSelected(index),
+          style: FilledButton.styleFrom(
+              backgroundColor: selected ? Colors.green : Colors.purple),
+          child: Text("Zone $index"),
+        ),
+        Flexible(
+          // height: 120,
+          // width: MediaQuery.sizeOf(context).width - 110,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
             child: Column(
               children: [
                 Row(
@@ -84,8 +95,13 @@ class ZoneRow extends StatelessWidget {
               ],
             ),
           ),
-        ],
-      ),
+        ),
+        FilledButton(
+            onPressed: () {},
+            onLongPress: () => deleteZone(index),
+            style: FilledButton.styleFrom(backgroundColor: Colors.red),
+            child: const Text("Delete")),
+      ],
     );
   }
 }

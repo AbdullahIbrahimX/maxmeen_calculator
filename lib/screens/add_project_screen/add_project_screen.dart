@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:maxmeen_calculator/screens/add_project_screen/group_row.dart';
 import 'package:maxmeen_calculator/screens/add_project_screen/title_splitter.dart';
+import 'package:maxmeen_calculator/screens/add_project_screen/zone_row.dart';
 import 'package:maxmeen_calculator/screens/main_screen/porject_tile.dart';
 import 'package:maxmeen_calculator/tools/models/group.dart';
 import 'package:maxmeen_calculator/tools/models/project.dart';
+import 'package:maxmeen_calculator/tools/models/zone.dart';
 
 import '../../kports.dart';
 
@@ -21,22 +23,52 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
   String customerName = "";
   String customerPhoneNumber = "";
   int? selectedGroup;
+  int? selectedZone;
 
+  ///
+  /// Group state control functions
+  ///
   changeGroupPurpose(int index, String purpose) {
     setState(() {
-      widget.newProject.groups[index].name = purpose;
+      widget.newProject.groups![index].name = purpose;
     });
   }
 
   deleteGroup(int index) {
     setState(() {
-      widget.newProject.groups.removeAt(index);
+      widget.newProject.groups!.removeAt(index);
+      if (widget.newProject.groups!.isNotEmpty) {
+        selectedGroup = 0;
+      } else {
+        selectedGroup = null;
+      }
     });
   }
 
   setSelectedGroup(int index) {
     setState(() {
       selectedGroup = index;
+    });
+  }
+
+  ///
+  ///Zone state control functions
+  ///
+  updateZone(Zone newData, int index) {
+    setState(() {
+      widget.newProject.groups?[selectedGroup!].zones![index] = newData;
+    });
+  }
+
+  deleteZone(int index) {
+    setState(() {
+      widget.newProject.groups![selectedGroup!].zones!.removeAt(index);
+    });
+  }
+
+  setSelectedZone(int index) {
+    setState(() {
+      selectedZone = index;
     });
   }
 
@@ -94,7 +126,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
               const TitleSplitter(Icon(Icons.speaker_group), "Groups"),
             ] +
             List.generate(
-              widget.newProject.groups.length,
+              widget.newProject.groups!.length,
               (index) => GroupRow(changeGroupPurpose, deleteGroup,
                   setSelectedGroup, index, selectedGroup == index),
             ) +
@@ -105,24 +137,42 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
               FilledButton(
                   onPressed: () {
                     setState(() {
-                      widget.newProject.groups.add(Group("id", "name"));
+                      widget.newProject.groups!.add(Group("id", "name"));
+                      selectedGroup = widget.newProject.groups!.length - 1;
                     });
                   },
                   child: const Text("Add Group")),
 
               ///
-              /// Project Area
+              /// Project Area Zones
               ///
               const TitleSplitter(
                   Icon(Icons.square_foot), "Area and level of sound"),
             ] +
-            // List.generate(
-            //     widget.newProject.groups[selectedGroup!].zones!.length,
-            //     (index) => ZoneRow()) +
+            List.generate(
+              selectedGroup == null
+                  ? 0
+                  : widget.newProject.groups?[selectedGroup!].zones?.length ??
+                      0,
+              (index) => ZoneRow(
+                index,
+                selectedZone == index,
+                setSelectedZone,
+                deleteZone,
+              ),
+            ) +
             [
               const SizedBox(height: 8.0),
               FilledButton(
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    widget.newProject.groups?[selectedGroup!].zones
+                        ?.add(Zone(""));
+                    selectedZone = widget
+                            .newProject.groups?[selectedGroup!].zones?.length ??
+                        0 - 1;
+                  });
+                },
                 child: const Text("Add Zone"),
               ),
 

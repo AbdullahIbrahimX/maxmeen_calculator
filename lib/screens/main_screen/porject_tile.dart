@@ -24,10 +24,10 @@ class ProjectTile extends StatelessWidget {
           Text(project.name),
           ListView.builder(
             shrinkWrap: true,
-            itemCount: project.groups.length,
+            itemCount: project.groups!.length,
             //itemCount: 0,
             itemBuilder: (context, index) {
-              Group group = project.groups[index];
+              Group group = project.groups![index];
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GroupTile(group: group),
@@ -224,12 +224,12 @@ class ZoneTile extends StatelessWidget {
       color: Colors.green,
       child: Column(
         children: [
-          Text(zone.name),
+          Text(zone.name ?? ""),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text("Recommended Watts : ${zone.recommendedWatt}"),
-              Text("Real Watts : ${zone.realWatt}"),
+              Text("Recommended Watts : ${zone.recommendedWatt ?? 0}"),
+              Text("Real Watts : ${zone.realWatt ?? 0}"),
             ],
           ),
           GridView.count(
@@ -237,7 +237,7 @@ class ZoneTile extends StatelessWidget {
             shrinkWrap: true,
             crossAxisCount: 3,
             children: List.generate(
-              zone.speakers!.length ?? 0,
+              zone.speakers?.length ?? 0,
               (index) {
                 Speaker speaker = zone.speakers![index];
                 return SpeakerTile(speaker: speaker);
