@@ -1,4 +1,4 @@
-import 'package:maxmeen_calculator/kports.dart';
+import 'package:maxmeen_calculator/kPorts.dart';
 import 'package:maxmeen_calculator/tools/models/amplifiers.dart';
 
 class Device {

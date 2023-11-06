@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:maxmeen_calculator/screens/add_project_screen/group_row.dart';
 import 'package:maxmeen_calculator/screens/add_project_screen/title_splitter.dart';
 import 'package:maxmeen_calculator/screens/add_project_screen/zone_row.dart';
-import 'package:maxmeen_calculator/screens/main_screen/porject_tile.dart';
+import 'package:maxmeen_calculator/screens/main_screen/project_tile.dart';
 import 'package:maxmeen_calculator/tools/models/group.dart';
 import 'package:maxmeen_calculator/tools/models/project.dart';
 import 'package:maxmeen_calculator/tools/models/zone.dart';
 
-import '../../kports.dart';
+import '../../kPorts.dart';
 
 class AddProjectScreen extends StatefulWidget {
   AddProjectScreen({super.key});
@@ -155,11 +155,13 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                   : widget.newProject.groups?[selectedGroup!].zones?.length ??
                       0,
               (index) => ZoneRow(
-                index,
-                selectedZone == index,
-                setSelectedZone,
-                deleteZone,
-              ),
+                  index,
+                  selectedZone == index,
+                  setSelectedZone,
+                  deleteZone,
+                  widget.newProject.groups?[selectedGroup!].zones?[index] ??
+                      Zone(),
+                  updateZone),
             ) +
             [
               const SizedBox(height: 8.0),
@@ -167,7 +169,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                 onPressed: () {
                   setState(() {
                     widget.newProject.groups?[selectedGroup!].zones
-                        ?.add(Zone(""));
+                        ?.add(Zone());
                     selectedZone = widget
                             .newProject.groups?[selectedGroup!].zones?.length ??
                         0 - 1;
@@ -180,18 +182,79 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
               /// Project Speakers
               ///
               const TitleSplitter(Icon(Icons.speaker), "Speakers"),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 100.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    FilledButton(onPressed: () {}, child: Text("Zone1")),
-                    const SizedBox(height: 10),
-                    FilledButton(onPressed: () {}, child: Text("Zone2")),
-                    const SizedBox(height: 10),
-                    FilledButton(onPressed: () {}, child: Text("Zone3")),
-                    const SizedBox(height: 10),
-                  ],
+              Container(
+                height: 70,
+                margin: const EdgeInsets.symmetric(horizontal: 8.9),
+                child: ListView.builder(
+                  // itemCount: widget.newProject.groups?[selectedGroup!]
+                  //         .zones?[selectedZone!].speakers?.length ??
+                  //     0,
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 4,
+                  itemBuilder: (context, index) {
+                    if (index == 3) {
+                      return SizedBox(
+                        height: 70,
+                        width: 70,
+                        child: FilledButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => SimpleDialog(
+                                title: const Text("Choose Speakers"),
+                                children: [
+                                  DropdownButton(
+                                    items: const [
+                                      DropdownMenuItem(
+                                        child: Text("Item1"),
+                                      ),
+                                    ],
+                                    onChanged: (value) {},
+                                    value: null,
+                                  ),
+                                  TextFormField(
+                                    decoration: myTextFormDecoration(
+                                        labelText: "Speaker count"),
+                                  ),
+                                  Row(
+                                    children: [
+                                      FilledButton(
+                                        onPressed: () {
+                                          //todo check form if pass => hook function to add speaker to the state
+                                        },
+                                        child: const Text("ADD"),
+                                      ),
+                                      FilledButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        style: FilledButton.styleFrom(
+                                            backgroundColor: Colors.red),
+                                        child: const Text("Cancel"),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                          child: const Icon(
+                            Icons.add,
+                          ),
+                        ),
+                      );
+                    } else {
+                      return const SizedBox(
+                        height: 70,
+                        width: 70,
+                        child: Card(
+                          color: Colors.blue,
+                          child: Text("data"),
+                        ),
+                      );
+                    }
+                  },
                 ),
               ),
 
@@ -203,7 +266,6 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 100.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     FilledButton(onPressed: () {}, child: Text("Zone1")),
                     const SizedBox(height: 10),

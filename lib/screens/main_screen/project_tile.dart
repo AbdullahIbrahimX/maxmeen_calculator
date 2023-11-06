@@ -23,6 +23,7 @@ class ProjectTile extends StatelessWidget {
         children: [
           Text(project.name),
           ListView.builder(
+            physics: const PageScrollPhysics(),
             shrinkWrap: true,
             itemCount: project.groups!.length,
             //itemCount: 0,
@@ -57,11 +58,12 @@ class GroupTile extends StatelessWidget {
         children: [
           Text(group.name),
           GridView.count(
+            physics: const PageScrollPhysics(),
             padding: const EdgeInsets.all(8.0),
             shrinkWrap: true,
             crossAxisCount: 2,
             children: List.generate(
-              group.zones!.length ?? 0,
+              group.zones?.length ?? 0,
               (index) {
                 Zone zone = group.zones![index];
                 return ZoneTile(zone: zone);
@@ -69,11 +71,12 @@ class GroupTile extends StatelessWidget {
             ),
           ),
           GridView.count(
+            physics: const PageScrollPhysics(),
             padding: const EdgeInsets.all(8.0),
             shrinkWrap: true,
             crossAxisCount: 2,
             children: List.generate(
-              group.devices!.length ?? 0,
+              group.devices?.length ?? 0,
               (index) {
                 Device device = group.devices![index];
                 return DeviceTile(device: device);
@@ -102,13 +105,13 @@ class DeviceTile extends StatelessWidget {
         children: [
           Text(device.sku),
           GridView.count(
+            physics: const PageScrollPhysics(),
             padding: const EdgeInsets.all(8.0),
             shrinkWrap: true,
             crossAxisCount: 2,
-            physics: ClampingScrollPhysics(),
             childAspectRatio: 0.53,
             children: List.generate(
-              device.amplifiers!.length ?? 0,
+              device.amplifiers?.length ?? 0,
               (index) {
                 Amplifier amplifier = device.amplifiers![index];
                 return AmplifierTile(amplifier: amplifier);
@@ -140,6 +143,7 @@ class AmplifierTile extends StatelessWidget {
             style: const TextStyle(color: Colors.white),
           ),
           GridView.count(
+            physics: const PageScrollPhysics(),
             padding: const EdgeInsets.all(8.0),
             shrinkWrap: true,
             crossAxisCount: 2,
@@ -152,6 +156,7 @@ class AmplifierTile extends StatelessWidget {
             ),
           ),
           GridView.count(
+            physics: const PageScrollPhysics(),
             padding: const EdgeInsets.all(8.0),
             shrinkWrap: true,
             crossAxisCount: 2,
@@ -233,6 +238,7 @@ class ZoneTile extends StatelessWidget {
             ],
           ),
           GridView.count(
+            physics: const PageScrollPhysics(),
             padding: const EdgeInsets.all(8.0),
             shrinkWrap: true,
             crossAxisCount: 3,

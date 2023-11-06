@@ -1,8 +1,9 @@
 import 'package:maxmeen_calculator/tools/models/speaker.dart';
 
 class Zone {
-  String id;
   String? name;
+  double? width;
+  double? length;
   double? area;
   double? levelOfSound;
   double? recommendedWatt;
@@ -11,7 +12,7 @@ class Zone {
   double? speakerCount;
   List<Speaker>? speakers;
 
-  Zone(this.id)
+  Zone()
       : name = "",
         area = 0,
         levelOfSound = 0 {
@@ -19,8 +20,9 @@ class Zone {
   }
   //todo delete me
   Zone.tester(
-      this.id,
       this.name,
+      this.width,
+      this.length,
       this.area,
       this.levelOfSound,
       this.recommendedWatt,
@@ -30,7 +32,7 @@ class Zone {
       this.speakers);
 
   void calculateRecommended() {
-    recommendedWatt = area ?? 0 * levelOfSound! ?? 0;
+    recommendedWatt = area! * levelOfSound! ?? 0;
     if (recommendedWatt != null && speakerCount != null) {
       recommendedWattPerSpeaker = recommendedWatt! / speakerCount!;
     }

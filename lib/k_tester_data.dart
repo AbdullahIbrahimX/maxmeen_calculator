@@ -37,9 +37,10 @@ Project project1 = Project.tester(
       ],
       [
         Zone.tester(
-          "id21",
           "livingRoom",
           30,
+          6,
+          7,
           1,
           30,
           10,
@@ -52,9 +53,10 @@ Project project1 = Project.tester(
           ],
         ),
         Zone.tester(
-          "id22",
           "Men's Livingroom",
           80,
+          6,
+          7,
           1,
           80,
           20,
@@ -97,9 +99,10 @@ Project project1 = Project.tester(
       ],
       [
         Zone.tester(
-          "id21",
           "livingRoom",
           30,
+          6,
+          7,
           1,
           30,
           10,
@@ -112,9 +115,10 @@ Project project1 = Project.tester(
           ],
         ),
         Zone.tester(
-          "id22",
           "Men's Livingroom",
           80,
+          6,
+          7,
           1,
           80,
           20,
@@ -190,9 +194,10 @@ Project project2 = Project.tester(
       ],
       [
         Zone.tester(
-          "1",
           "bedroom1",
           20,
+          6,
+          7,
           0.5,
           20,
           10,
@@ -204,9 +209,10 @@ Project project2 = Project.tester(
           ],
         ),
         Zone.tester(
-          "2",
           "bedroom2",
           20,
+          6,
+          7,
           0.5,
           20,
           10,
