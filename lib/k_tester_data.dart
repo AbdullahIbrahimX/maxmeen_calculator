@@ -227,3 +227,12 @@ Project project2 = Project.tester(
     )
   ],
 );
+
+List<Speaker> kSpeakersTester = [
+  Speaker.volt(
+      "1", "Maxmeen Ceiling Speaker 10W", "MG-CS156-6T", [10, 5, 2.5], 8),
+  Speaker.volt(
+      "1", "Maxmeen Ceiling Speaker 10W", "MG-CS156-6T", [10, 5, 2.5], 8),
+  Speaker.ohm("2", "Maxmeen Wallmount Speaker 200w", "MG-PN208P", [200], 8),
+  Speaker.ohm("2", "Maxmeen Wallmount Speaker 200w", "MG-PN208P", [200], 8),
+];

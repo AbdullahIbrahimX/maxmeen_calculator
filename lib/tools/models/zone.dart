@@ -15,7 +15,8 @@ class Zone {
   Zone()
       : name = "",
         area = 0,
-        levelOfSound = 0 {
+        levelOfSound = 0,
+        speakers = [] {
     calculateRecommended();
   }
   //todo delete me

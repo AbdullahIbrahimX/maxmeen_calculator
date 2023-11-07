@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:maxmeen_calculator/k_tester_data.dart';
 import 'package:maxmeen_calculator/screens/add_project_screen/group_row.dart';
 import 'package:maxmeen_calculator/screens/add_project_screen/title_splitter.dart';
 import 'package:maxmeen_calculator/screens/add_project_screen/zone_row.dart';
 import 'package:maxmeen_calculator/screens/main_screen/project_tile.dart';
 import 'package:maxmeen_calculator/tools/models/group.dart';
 import 'package:maxmeen_calculator/tools/models/project.dart';
+import 'package:maxmeen_calculator/tools/models/speaker.dart';
 import 'package:maxmeen_calculator/tools/models/zone.dart';
 
 import '../../kPorts.dart';
@@ -69,6 +71,23 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
   setSelectedZone(int index) {
     setState(() {
       selectedZone = index;
+    });
+  }
+
+  ///
+  /// Speaker state control
+  ///
+  addSpeakers(List<Speaker> speakers) {
+    setState(() {
+      widget.newProject.groups?[selectedGroup!].zones?[selectedZone!].speakers!
+          .addAll(speakers);
+    });
+  }
+
+  deleteSpeaker(int index) {
+    setState(() {
+      widget.newProject.groups?[selectedGroup!].zones?[selectedZone!].speakers
+          ?.removeAt(index);
     });
   }
 
@@ -189,11 +208,12 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                   // itemCount: widget.newProject.groups?[selectedGroup!]
                   //         .zones?[selectedZone!].speakers?.length ??
                   //     0,
+                  itemCount: 4,
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemCount: 4,
                   itemBuilder: (context, index) {
                     if (index == 3) {
+                      Speaker? chosenSpeaker = kSpeakersTester.first;
                       return SizedBox(
                         height: 70,
                         width: 70,
@@ -204,14 +224,27 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                               builder: (context) => SimpleDialog(
                                 title: const Text("Choose Speakers"),
                                 children: [
-                                  DropdownButton(
-                                    items: const [
-                                      DropdownMenuItem(
-                                        child: Text("Item1"),
-                                      ),
-                                    ],
-                                    onChanged: (value) {},
-                                    value: null,
+                                  StatefulBuilder(
+                                    builder: (BuildContext context,
+                                        void Function(void Function())
+                                            setState) {
+                                      return DropdownButton<Speaker>(
+                                        value: chosenSpeaker,
+                                        onChanged: (speaker) {
+                                          setState(() {
+                                            chosenSpeaker = speaker;
+                                          });
+                                        },
+                                        items: kSpeakersTester
+                                            .map(
+                                              (e) => DropdownMenuItem<Speaker>(
+                                                value: e,
+                                                child: Text(e.name),
+                                              ),
+                                            )
+                                            .toList(),
+                                      );
+                                    },
                                   ),
                                   TextFormField(
                                     decoration: myTextFormDecoration(
